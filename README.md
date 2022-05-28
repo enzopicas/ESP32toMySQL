@@ -3,28 +3,44 @@ This project provide instructions and code examples to push datas from esp32 to 
 
 ## HARDWARE REQUIREMENTS
 * Linux Server
-    * Any linux computer on your own WiFi
-    * You can also rent a VPS
 * ESP32
     * Any ESP32 eval board with WiFi antenna
+
+## Final architecture
+```mermaid
+graph LR
+
+Sensors-->Data
+
+subgraph ESP32
+    Data
+end;
+
+Data--:80-->Apache
+
+subgraph Server
+    Apache-->php_example.php-->MySQL_DB[(MySQL_DB)]-->Grafana
+end;
+```
 
 ## SERVER SETUP INSTRUCTIONS
 To push datas to grafana server, you must got a linux server available, with differents services enabled.  
 Instructions are written for linux debian OS (debian, ubuntu, raspbian, ...), but you can adapt them with your own linux OS.  
 **Project is tested with Raspberry Pi 4, 4Go RAM, ubuntu-server OS.**
 
-There is the list of services required (LAMP server + Grafana). If you already have one of them, you can directly go to next point.
-* [Apache2 server](setup/setup_apache2.md)
+There is the list of services required (LAMP server + Grafana).
+* **Apache2 server**
     * Used to listening to 80 port.
-* [MySQL](setup/setup_mysql.md)
+* **MySQL**
     * Used to save datas, and send them to Grafana.
-* [PHP](setup/setup_php.md)
+* **PHP**
     * Used to catch ESP32 datas on 80 port and add them to MySQL database.
-* [Grafana](setup/setup_grafana.md) (optional)
+* *phpmyadmin*
+    * Optional, but easier to create table in database.
+* **Grafana**
     * Used to display datas on web browser.
 
 ## CODES EXAMPLES
-Now, your server is correctly setup, you can use it to catch esp32 datas and display them on grafana.
 
 ### SETUP MYSQL
 #### Create new databse and user

@@ -63,7 +63,7 @@ $req->execute(array(
     'longitude' => $_POST['longitude']
 ));
 
-This method work, but you can't specify default value if on of the variables isn't received.
+This method work, but you can't specify default value if one of the variables isn't received.
 */
 
 echo 'Fin de l\'ajout';
